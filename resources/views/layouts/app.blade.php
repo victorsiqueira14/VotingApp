@@ -14,8 +14,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans bg-gray-background  text-gray-900 text-sm">
-        <header class="flex items-center justify-between px-8 py-4">
-        <a href="#"><img src="{{ asset('img/logo.svg') }}" alt="logo"></a>
+        <header class="flex items-center justify-between px-2 py-4 ">
+        <a href="#"><img src="{{ asset('img/logo-braip.png') }}" class="ml-64 w-24 mx-auto" alt="logo"></a>
             <div class="flex items-center">
                 @if (Route::has('login'))
                     <div class="px-6 py-4 ">
