@@ -12,7 +12,11 @@
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Open+Sans:wght@400;600;700&display=swap">
 
     <!-- Scripts -->
+
+    <livewire:styles />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
 </head>
 
 <body class="font-sans bg-gray-background  text-gray-900 text-sm">
@@ -50,7 +54,7 @@
     </header>
 
     <main class="container mx-auto max-w-custom flex flex-col md:flex-row">
-        <div class="w-70 mx-auto md:mx-0 md:mr-5">
+        <div class="w-70 mx-auto  md:mx-0 md:mr-5">
             {{-- idea page --}}
             <div class=" bg-white md:sticky md:top-8 border-2 border-blue rounded-xl mt-16"
                 style="
@@ -136,6 +140,6 @@
             </div>
         </div>
     </main>
+    <livewire:scripts />
 </body>
-
 </html>
