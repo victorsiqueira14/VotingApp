@@ -42,8 +42,35 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * User's has many Ideas
+     *
+     * @return void
+     */
     public function ideas()
     {
         return $this->hasMany(Idea::class);
+    }
+
+    /**
+     * Get user's avatar
+     *
+     * @return void
+     */
+    public function getAvatar()
+    {
+
+        $firstCharacter = $this->email[0];
+
+        $integerToUse = is_numeric($firstCharacter)
+            ? ord(strtolower($firstCharacter)) - 21
+            : ord(strtolower($firstCharacter)) - 96;
+
+        return 'https://gravatar.com/avatar/'
+        .md5($this->email)
+        .'?s=200'
+        .'&d=https://s3.amazonaws.com/laracasts/images/forum/avatars/default-avatar-'
+        .$integerToUse
+        .'.png';
     }
 }
