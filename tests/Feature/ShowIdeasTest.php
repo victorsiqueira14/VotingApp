@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Idea;
+use App\Models\Status;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,15 +24,20 @@ class ShowIdeasTest extends TestCase
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
         $categoryTwo = Category::factory()->create(['name' => 'Category 2']);
 
+        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
+        $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white' ]);
+
         $ideaOne  = Idea::factory()->create([
             'title' => 'my first Idea',
             'category_id' => $categoryOne->id,
+            'status_id' => $statusOpen->id,
             'description' => 'Description of my first Idea',
         ]);
 
         $ideaTwo  = Idea::factory()->create([
             'title' => 'my second Idea',
             'category_id' => $categoryTwo->id,
+            'status_id' => $statusConsidering->id,
             'description' => 'Description of my second Idea',
         ]);
 
@@ -41,9 +47,11 @@ class ShowIdeasTest extends TestCase
         $response->assertSee($ideaOne->title);
         $response->assertSee($ideaOne->Description);
         $response->assertSee($categoryOne->name);
+        $response->assertSee('<div class="bg-gray-200', false);
         $response->assertSee($ideaTwo->title);
         $response->assertSee($ideaTwo->Description);
         $response->assertSee($categoryTwo->name);
+        $response->assertSee('<div class="bg-purple text-white', false);
 
     }
 
@@ -55,9 +63,11 @@ class ShowIdeasTest extends TestCase
     public function test_a_sigle_idea_show_correcly_on_the_show_page()
     {
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
+        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
 
         $idea  = Idea::factory()->create([
             'category_id' => $categoryOne->id,
+            'status_id' => $statusOpen->id,
             'title' => 'my first Idea',
             'description' => 'Description of my first Idea',
         ]);
@@ -68,6 +78,7 @@ class ShowIdeasTest extends TestCase
         $response->assertSee($idea->title);
         $response->assertSee($idea->Description);
         $response->assertSee($categoryOne->name);
+        $response->assertSee('<div class="bg-gray-200', false);
     }
 
     /**
@@ -78,8 +89,10 @@ class ShowIdeasTest extends TestCase
     public function test_if_ideas_pagination_works()
     {
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
+        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
         Idea::factory(Idea::PAGINATION_COUNT + 1)->create([
             'category_id' => $categoryOne->id,
+            'status_id' => $statusOpen->id,
         ]);
 
         $ideaOne = Idea::find(1);
@@ -110,14 +123,18 @@ class ShowIdeasTest extends TestCase
     public function test_if_same_idea_title_different_slugs()
     {
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
+        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
+
         $ideaOne  = Idea::factory()->create([
             'category_id' => $categoryOne->id,
+            'status_id' => $statusOpen->id,
             'title' => 'my first idea',
             'description' => 'Description of my first Idea',
         ]);
 
         $ideaTwo  = Idea::factory()->create([
             'category_id' => $categoryOne->id,
+            'status_id' => $statusOpen->id,
             'title' => 'my first idea',
             'description' => 'Another Description of my first Idea',
         ]);
