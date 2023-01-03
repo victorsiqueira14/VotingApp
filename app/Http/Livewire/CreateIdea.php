@@ -19,6 +19,11 @@ class CreateIdea extends Component
         'description' => 'required|min:4',
     ];
 
+    /**
+     * Create a Idea on View Page, rules and flashes
+     *
+     * @return void
+     */
     public function createIdea()
     {
         if (auth()->check()) {
