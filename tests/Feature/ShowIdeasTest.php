@@ -52,7 +52,6 @@ class ShowIdeasTest extends TestCase
         $response->assertSee($ideaTwo->Description);
         $response->assertSee($categoryTwo->name);
         $response->assertSee('<div class="bg-purple text-white', false);
-
     }
 
     /**
@@ -112,7 +111,6 @@ class ShowIdeasTest extends TestCase
 
         $response->assertSee($ideaEleven->title);
         $response->assertDontSee($ideaOne->title);
-
     }
 
     /**
