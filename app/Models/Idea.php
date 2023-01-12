@@ -58,6 +58,11 @@ class Idea extends Model
         return $this->belongsTo(Status::class);
     }
 
+    /**
+     * A votes belongs to many users
+     *
+     * @return void
+     */
     public function votes()
     {
         return $this->belongsToMany(User::class, 'votes');
