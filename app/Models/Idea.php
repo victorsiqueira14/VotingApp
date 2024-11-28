@@ -40,11 +40,6 @@ class Idea extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * A category belongs to User
-     *
-     * @return void
-     */
     public function category()
     {
         return $this->belongsTo(Category::class);
